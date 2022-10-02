@@ -1,5 +1,6 @@
 package singlylinkedlist;
 
+import exceptions.EmptyListException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,80 +25,80 @@ public class SinglyLinkedListTestsIT {
     }
 
     @Test
-    public void size_sizeOfList() {
+    public void size_SizeOfList() {
         assertEquals(3, sll.getSize());
     }
 
     @Test
-    public void get_itemAtInvalidIndex_ThrowsException() {
+    public void get_ItemAtInvalidIndex_ThrowsException() {
         IndexOutOfBoundsException exception =
                 assertThrows(IndexOutOfBoundsException.class, () -> sll.get(100));
         assertTrue(exception.getMessage().contains("Invalid index"));
     }
 
     @Test
-    public void get_itemAtValidIndex() {
+    public void get_ItemAtValidIndex() {
         assertEquals(2, (int) sll.get(1));
     }
 
     @Test
-    public void getFirst_firstItemFromEmptyList_ThrowsException() {
+    public void getFirst_FirstItemFromEmptyList_ThrowsException() {
         sll.clear();
-        IndexOutOfBoundsException exception =
-                assertThrows(IndexOutOfBoundsException.class, () -> sll.getFirst());
-        assertTrue(exception.getMessage().contains("There are no items in the list"));
+        EmptyListException exception =
+                assertThrows(EmptyListException.class, () -> sll.getFirst());
+        assertTrue(exception.getMessage().contains("List is Empty"));
     }
 
     @Test
-    public void getFirst_firstItemOfTheList() {
+    public void getFirst_FirstItemOfTheList() throws EmptyListException {
         assertEquals((int) sll.getFirst(), 1);
     }
 
     @Test
-    public void getLast_lastItemFromEmptyList_ThrowsException() {
+    public void getLast_LastItemFromEmptyList_ThrowsException() {
         sll.clear();
-        IndexOutOfBoundsException exception =
-                assertThrows(IndexOutOfBoundsException.class, () -> sll.getLast());
-        assertTrue(exception.getMessage().contains("There are no items in the list"));
+        EmptyListException exception =
+                assertThrows(EmptyListException.class, () -> sll.getLast());
+        assertTrue(exception.getMessage().contains("List is Empty"));
     }
 
     @Test
-    public void getLast_lastItemOfTheList() {
+    public void getLast_LastItemOfTheList() throws EmptyListException {
         assertEquals((int) sll.getLast(), 3);
     }
 
     @Test
-    public void addFirst_addItemToBeginningOfTheList() {
+    public void addFirst_AddItemToBeginningOfTheList() throws EmptyListException{
         sll.addFirst(10);
         assertEquals((int) sll.getFirst(), 10);
     }
 
     @Test
-    public void addLast_addItemToEndOfTheList() {
+    public void addLast_AddItemToEndOfTheList() throws EmptyListException{
         sll.addLast(20);
         assertEquals((int) sll.getLast(), 20);
     }
 
     @Test
-    public void removeFirst_removeFirstItemOfTheList_returnsRemovedItem() throws Exception {
+    public void removeFirst_RemoveFirstItemOfTheList_ReturnsRemovedItem() throws Exception {
         int removedItem = sll.removeFirst();
         assertEquals(1, removedItem);
     }
 
     @Test
-    public void removeFirst_removeFirstItemOfTheList_newFirstItemIsSecondItemsOfPreviousList() throws Exception {
+    public void removeFirst_RemoveFirstItemOfTheList_NewFirstItemIsSecondItemsOfPreviousList() throws Exception {
         sll.removeFirst();
         assertEquals(2, (int) sll.getFirst());
     }
 
     @Test
-    public void removeLast_removeLastItemOfTheList_returnsRemovedItem() throws Exception {
+    public void removeLast_RemoveLastItemOfTheList_ReturnsRemovedItem() throws Exception {
         int removedItem = sll.removeLast();
         assertEquals(3, removedItem);
     }
 
     @Test
-    public void removeLast_removeLastItemOfTheList_newLastItemIsSecondToLastOfPreviousList() throws Exception {
+    public void removeLast_RemoveLastItemOfTheList_NewLastItemIsSecondToLastOfPreviousList() throws Exception {
         sll.removeLast();
         assertEquals(2, (int) sll.getLast());
     }

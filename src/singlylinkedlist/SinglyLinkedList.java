@@ -1,5 +1,7 @@
 package singlylinkedlist;
 
+import exceptions.EmptyListException;
+
 public class SinglyLinkedList<T> {
 
     private final Node sentinel;
@@ -15,11 +17,11 @@ public class SinglyLinkedList<T> {
         size++;
     }
 
-    public T getFirst() throws IndexOutOfBoundsException {
+    public T getFirst() throws EmptyListException {
         try {
             return get(0);
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException("There are no items in the list");
+            throw new EmptyListException("List is Empty");
         }
     }
 
@@ -29,25 +31,25 @@ public class SinglyLinkedList<T> {
         size++;
     }
 
-    public T getLast() throws IndexOutOfBoundsException {
+    public T getLast() throws EmptyListException {
         try {
             return get(size - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException("There are no items in the list");
+            throw new EmptyListException("List is Empty");
         }
     }
 
-    public T removeFirst() throws Exception {
+    public T removeFirst() throws EmptyListException {
         if (size > 0) {
             T removedItem = sentinel.next.item;
             sentinel.next = sentinel.next.next;
             size--;
             return removedItem;
         }
-        throw new Exception("There are no items to remove");
+        throw new EmptyListException("List is Empty");
     }
 
-    public T removeLast() throws Exception {
+    public T removeLast() throws EmptyListException {
         if (size > 0) {
             Node beforeLast = getNode(size - 2);
             T removedItem = beforeLast.next.item;
@@ -55,7 +57,7 @@ public class SinglyLinkedList<T> {
             size--;
             return removedItem;
         }
-        throw new Exception("There are no items to remove");
+        throw new EmptyListException("List is Empty");
     }
 
     public T get(int index) {
@@ -88,7 +90,7 @@ public class SinglyLinkedList<T> {
         size = 0;
     }
 
-    public class Node {
+    private class Node {
         T item;
         Node next;
 
